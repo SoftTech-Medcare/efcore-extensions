@@ -2,6 +2,12 @@
   <PropertyGroup>
     <Description>Window functions for Entity Framework Core</Description>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+  </PropertyGroup>
   <ItemGroup>
     <Using Include="Microsoft.EntityFrameworkCore" />
     <Using Include="Microsoft.EntityFrameworkCore.Diagnostics" />

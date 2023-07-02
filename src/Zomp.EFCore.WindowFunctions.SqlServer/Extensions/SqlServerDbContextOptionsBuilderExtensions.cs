@@ -26,7 +26,7 @@ public static class SqlServerDbContextOptionsBuilderExtensions
         var extension = coreOptionsBuilder.Options.FindExtension<SqlServerDbContextOptionsExtension>() ?? new SqlServerDbContextOptionsExtension();
 
         ((IDbContextOptionsBuilderInfrastructure)coreOptionsBuilder).AddOrUpdateExtension(extension);
-        coreOptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WindowFunctionsSqlServerParameterBasedSqlProcessorFactory>();
+        coreOptionsBuilder.ReplaceService<IRelationalParameterBasedSqlProcessorFactory, WindowRelationalParameterBasedSqlProcessorFactory<WindowFunctionsSqlServerParameterBasedSqlProcessor>>();
         coreOptionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, WindowFunctionsSqlServerQuerySqlGeneratorFactory>();
 
         return builder;

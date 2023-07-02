@@ -1,12 +1,14 @@
 ﻿namespace Zomp.EFCore.WindowFunctions.Query.Internal;
 
 /// <summary>
-/// Factory for producing <see cref="WindowRelationalParameterBasedSqlProcessor"/> instances.
+/// Factory for producing <see cref="WindowRelationalParameterBasedSqlProcessor{T}"/> instances.
 /// </summary>
-public class WindowRelationalParameterBasedSqlProcessorFactory : RelationalParameterBasedSqlProcessorFactory
+/// <typeparam name="TParameterBasedSqlProcessor"> RelationalParameterBasedSqlProcessor Type. </typeparam>
+public class WindowRelationalParameterBasedSqlProcessorFactory<TParameterBasedSqlProcessor> : RelationalParameterBasedSqlProcessorFactory
+    where TParameterBasedSqlProcessor : RelationalParameterBasedSqlProcessor
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="WindowRelationalParameterBasedSqlProcessorFactory"/> class.
+    /// Initializes a new instance of the <see cref="WindowRelationalParameterBasedSqlProcessorFactory{TParameterBasedSqlProcessor}"/> class.
     /// </summary>
     /// <param name="dependencies">Relational Parameter Based Sql ProcessorDependencies.</param>
     public WindowRelationalParameterBasedSqlProcessorFactory(RelationalParameterBasedSqlProcessorDependencies dependencies)
@@ -16,5 +18,5 @@ public class WindowRelationalParameterBasedSqlProcessorFactory : RelationalParam
 
     /// <inheritdoc/>
     public override RelationalParameterBasedSqlProcessor Create(bool useRelationalNulls)
-        => new WindowRelationalParameterBasedSqlProcessor(Dependencies, useRelationalNulls);
+        => (TParameterBasedSqlProcessor)Activator.CreateInstance(typeof(TParameterBasedSqlProcessor), Dependencies, useRelationalNulls);
 }
