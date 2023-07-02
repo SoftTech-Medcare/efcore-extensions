@@ -1,12 +1,17 @@
-﻿namespace Zomp.EFCore.WindowFunctions.Npgsql.Tests;
+﻿using Testcontainers.PostgreSql;
+
+namespace Zomp.EFCore.WindowFunctions.Npgsql.Tests;
 
 public class TestBase : IDisposable
 {
     private readonly NpgsqlTestDbContext dbContext;
+    private readonly PostgreSqlContainer? container;
 
     public TestBase(ITestOutputHelper output)
     {
-        dbContext = new NpgsqlTestDbContext(output.ToLoggerFactory());
+        container = NpgsqlFixture.container;
+
+        dbContext = new NpgsqlTestDbContext(container.GetConnectionString(), output.ToLoggerFactory());
     }
 
     protected NpgsqlTestDbContext DbContext => dbContext;

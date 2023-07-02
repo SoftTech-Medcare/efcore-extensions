@@ -2,6 +2,12 @@
   <PropertyGroup>
     <Description>Window functions for PostgreSQL/Npgsql database provider for Entity Framework Core</Description>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zomp.EFCore.WindowFunctions\Zomp.EFCore.WindowFunctions.csproj" />
   </ItemGroup>

@@ -4,14 +4,23 @@ public class NpgsqlTestDbContext : TestDbContext
     public NpgsqlTestDbContext(ILoggerFactory? loggerFactory = null)
         : base(loggerFactory)
     {
+        ConnectionString = string.Empty;
     }
+
+    public NpgsqlTestDbContext(string connectionString, ILoggerFactory? loggerFactory = null)
+        : base(loggerFactory)
+    {
+        ConnectionString = connectionString;
+    }
+
+    public string ConnectionString { get; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
 
         optionsBuilder.UseNpgsql(
-            $"Host=localhost;Database=Zomp_Efcore_WindowFunctions_Tests;Username=npgsql_tests;Password=npgsql_tests",
+            ConnectionString ?? $"Host=localhost;Database=Zomp_Efcore_WindowFunctions_Tests;Username=npgsql_tests;Password=npgsql_tests",
             o => o.UseWindowFunctions());
     }
 

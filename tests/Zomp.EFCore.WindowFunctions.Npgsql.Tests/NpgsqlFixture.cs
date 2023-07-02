@@ -1,9 +1,18 @@
-﻿namespace Zomp.EFCore.WindowFunctions.Npgsql.Tests;
+﻿using Testcontainers.PostgreSql;
+
+namespace Zomp.EFCore.WindowFunctions.Npgsql.Tests;
+
 public class NpgsqlFixture : TestFixture
 {
+    public static PostgreSqlContainer? container;
+
     public async override Task InitializeAsync()
     {
-        TestDBContext = new NpgsqlTestDbContext();
+        container = new PostgreSqlBuilder()
+          .Build();
+        await container.StartAsync();
+
+        TestDBContext = new NpgsqlTestDbContext(container.GetConnectionString());
         await base.InitializeAsync();
     }
 
